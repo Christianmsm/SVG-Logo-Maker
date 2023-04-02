@@ -78,8 +78,6 @@ typings/
 # Next.js build output
 .next
 
-# Nuxt.js build / generate output
-.nuxt
 
 # Gatsby files
 .cache/
@@ -87,7 +85,6 @@ typings/
 # https://nextjs.org/blog/next-9-1#public-directory-support
 # public
 
-# vuepress build output
 
 # Serverless directories
 .serverless/

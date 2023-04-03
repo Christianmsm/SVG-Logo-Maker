@@ -8,11 +8,12 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Christian Smith",
   "license": "MIT",
   "dependencies": {
+    "fs": "^0.0.1-security",
     "inquirer": "^8.2.5",
     "jest": "^29.5.0"
   }

@@ -1,8 +1,10 @@
 //Included packages needed
 const fs = require('fs')
 const inquirer = require('inquirer')
-// const shapes = require('./lib/shapes')
-//An object array for colors and values. this is based on implemtation and resources provided by Ryan Spath
+const { Circle, Square, Triangle } = require('./lib/shapes.js')
+const generateLogo = require('./lib/generate.js')
+
+//An object array for colors and values. this is based on resources provided by Ryan Spath
 const ColorKeyWords = [
     { name: 'black', value: '#000000' },
     { name: 'white', value: '#FFFFFF' },
@@ -85,15 +87,30 @@ const questions = [
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, (err) => {
         if (err) throw err;
-        console.log('Successfully generated your SVG logo')
+        console.log('Successfully generated your SVG logo!')
     });
 }
 
 // Function to initialize app
 function init() {
     inquirer.prompt(questions).then((data) => {
-        const logo = shapes(data);
-        writeToFile('logo.svg', logo)
+        let initShape
+
+        if (data.background === 'custom') {
+            data.background = data.backgroundHexCode
+        }
+        if (data.shape === 'circle') {
+            initShape = new Circle(data.background)
+        }
+        else if (data.shape === 'square') {
+            initShape = new Square(data.background)
+        }
+        else {
+            initShape = new Triangle(data.background)
+        }
+        const logo = initShape.render()
+        const svg = generateLogo(logo, data.background, data.text, data.textColor);
+        writeToFile('logo.svg', svg);
     });
 }
 

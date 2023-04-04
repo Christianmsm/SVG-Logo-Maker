@@ -1,8 +1,8 @@
 //Included packages needed
-const fs = require('fs')
-const inquirer = require('inquirer')
-const { Circle, Square, Triangle } = require('./lib/shapes.js')
-const generateLogo = require('./lib/generate.js')
+const fs = require('fs');
+const inquirer = require('inquirer');
+const { Circle, Square, Triangle } = require('./lib/shapes.js');
+const generateLogo = require('./lib/generate.js');
 
 //An object array for colors and values. this is based on resources provided by Ryan Spath
 const ColorKeyWords = [
@@ -87,7 +87,7 @@ const questions = [
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, (err) => {
         if (err) throw err;
-        console.log('Successfully generated your SVG logo!')
+        console.log('Successfully generated your SVG logo!');
     });
 }
 
@@ -99,17 +99,19 @@ function init() {
         if (data.background === 'custom') {
             data.background = data.backgroundHexCode
         }
-        if (data.shape === 'circle') {
-            initShape = new Circle(data.background)
+        if (data.logoshape === 'Circle') {
+            initShape = new Circle(data.background);
         }
-        else if (data.shape === 'square') {
-            initShape = new Square(data.background)
+        else if (data.logoshape === 'Square') {
+            initShape = new Square(data.background);
         }
         else {
-            initShape = new Triangle(data.background)
+            initShape = new Triangle(data.background);
         }
+        // initShape.setColor(data.background)
+
         const logo = initShape.render()
-        const svg = generateLogo(logo, data.background, data.text, data.textColor);
+        const svg = generateLogo(logo, data.text, data.textColor, data.textHexCode, data.background);
         writeToFile('logo.svg', svg);
     });
 }
